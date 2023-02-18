@@ -9,7 +9,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: prometheus-k8s
-  namespace: dev-prometheus
+  namespace: dev-aiems
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -35,13 +35,13 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: prometheus-k8s
-  namespace: dev-prometheus
+  namespace: dev-aiems
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: grafana-config
-  namespace: dev-prometheus
+  namespace: dev-aiems
 data:
   grafana.ini: |
     [smtp]
@@ -57,7 +57,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grafana-core
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: grafana
     component: core
@@ -139,14 +139,14 @@ data:
   admin-username: YWRtaW4=
 metadata:
   name: grafana
-  namespace: dev-prometheus
+  namespace: dev-aiems
 type: Opaque
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: grafana
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: grafana
     component: core
@@ -164,7 +164,7 @@ metadata:
   name: prometheus-core
   labels:
     name: prometheus-core
-  namespace: dev-prometheus
+  namespace: dev-aiems
 data:
   # prometheus.rules: |-
   #   groups:
@@ -346,7 +346,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: prometheus-core
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: prometheus
     component: core
@@ -407,7 +407,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kube-state-metrics
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels: 
     app: kube-state-metrics
 spec:
@@ -446,7 +446,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: kube-state-metrics
-  namespace: dev-prometheus
+  namespace: dev-aiems
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -473,7 +473,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: kube-state-metrics
-  namespace: dev-prometheus
+  namespace: dev-aiems
 ---
 apiVersion: v1
 kind: Service
@@ -481,7 +481,7 @@ metadata:
   annotations:
     prometheus.io/scrape: 'true'
   name: kube-state-metrics
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: kube-state-metrics
 spec:
@@ -497,7 +497,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: node-directory-size-metrics
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: node-directory-size-metrics
   annotations:
@@ -588,7 +588,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: prometheus-node-exporter
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: prometheus
     component: node-exporter
@@ -627,7 +627,7 @@ metadata:
   annotations:
     prometheus.io/scrape: 'true'
   name: prometheus-node-exporter
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: prometheus
     component: node-exporter
@@ -646,7 +646,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus
-  namespace: dev-prometheus
+  namespace: dev-aiems
   labels:
     app: prometheus
     component: core
